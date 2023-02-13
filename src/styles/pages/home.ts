@@ -14,6 +14,7 @@ export const Product = styled('div', {
   cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
+  maxHeight: '656px',
   aspectRatio: '1 / 1.2',
 
   display: 'flex',

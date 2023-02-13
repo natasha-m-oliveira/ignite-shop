@@ -13,7 +13,6 @@ import Stripe from 'stripe'
 import Head from 'next/head'
 import { Bag } from 'phosphor-react'
 import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart'
-import { useMediaQuery } from 'react-responsive'
 
 interface HomeProps {
   products: {
@@ -29,12 +28,24 @@ interface HomeProps {
 export default function Home({ products }: HomeProps) {
   const { addItem } = useShoppingCart()
 
-  const isMobileScreen = useMediaQuery({ query: '(max-width: 768px)' })
-
   const [sliderRef] = useKeenSlider({
     slides: {
-      perView: isMobileScreen ? 1.2 : 2.5,
-      spacing: isMobileScreen ? 24 : 48,
+      perView: 1.2,
+      spacing: 24,
+    },
+    breakpoints: {
+      '(min-width: 640px': {
+        slides: {
+          perView: 2.5,
+          spacing: 48,
+        },
+      },
+      '(min-width: 1920px)': {
+        slides: {
+          perView: 3.5,
+          spacing: 48,
+        },
+      },
     },
   })
 
