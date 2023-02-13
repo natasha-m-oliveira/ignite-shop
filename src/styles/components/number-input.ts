@@ -3,12 +3,12 @@ import { styled } from '..'
 export const NumberInputContainer = styled('div', {
   display: 'flex',
   alignItems: 'center',
+  gap: '0.25rem',
+  maxWidth: '4.5rem',
 
   input: {
-    width: '3rem',
-    height: '2.5rem',
-    padding: '0.75rem',
-    background: '$gray900',
+    width: '100%',
+    background: 'none',
     color: '$gray100',
     fontSize: '$sm',
     fontWeight: 'bold',
@@ -23,6 +23,8 @@ export const NumberInputContainer = styled('div', {
   },
 
   button: {
-    padding: '0.75rem',
+    width: '0.875rem',
+    aspectRatio: '1 / 1',
+    lineHeight: '0',
   },
 })

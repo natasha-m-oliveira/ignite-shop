@@ -7,8 +7,8 @@ export const globalStyles = globalCss({
     boxSizing: 'border-box',
 
     '&::-webkit-scrollbar': {
-      width: '10px',
-      height: '10px',
+      width: '6px',
+      height: '6px',
     },
 
     '&::-webkit-scrollbar-track': {
@@ -16,8 +16,8 @@ export const globalStyles = globalCss({
     },
 
     '&::-webkit-scrollbar-thumb': {
-      borderRadius: '10px',
-      background: '$gray800',
+      borderRadius: '3px',
+      background: '$gray500',
     },
 
     '&::-webkit-scrollbar-corner': {

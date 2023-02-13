@@ -30,6 +30,10 @@ export const SuccessContainer = styled('main', {
     textDecoration: 'none',
     fontWeight: 'bold',
 
+    transitionProperty: 'color',
+    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    transitionDuration: '150ms',
+
     '&:hover': {
       color: '$green300',
     },

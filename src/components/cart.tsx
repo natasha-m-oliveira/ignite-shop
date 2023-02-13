@@ -1,5 +1,5 @@
 import { Bag, X } from 'phosphor-react'
-import * as AlertDialog from '@radix-ui/react-alert-dialog'
+import * as Dialog from '@radix-ui/react-dialog'
 import {
   Close,
   CartContainer,
@@ -9,7 +9,8 @@ import {
   ImageContainer,
   Trigger,
   Couter,
-  PriceContainer,
+  ActionsContainer,
+  ProductDetails,
 } from '../styles/components/cart'
 import { useShoppingCart } from 'use-shopping-cart'
 import Image from 'next/image'
@@ -23,7 +24,6 @@ export default function Cart() {
     cartCount,
     cartDetails,
     formattedTotalPrice,
-    clearCart,
     removeItem,
     incrementItem,
     decrementItem,
@@ -50,8 +50,6 @@ export default function Cart() {
 
       const { checkoutUrl } = response.data
 
-      clearCart()
-
       window.location.href = checkoutUrl
     } catch (err) {
       // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
@@ -64,23 +62,23 @@ export default function Cart() {
   }
 
   return (
-    <AlertDialog.Root>
-      <AlertDialog.Trigger asChild>
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
         <Trigger>
           <Bag size="1.5rem" />
           {!!cartCount && <Couter>{cartCount}</Couter>}
         </Trigger>
-      </AlertDialog.Trigger>
+      </Dialog.Trigger>
 
-      <AlertDialog.Portal>
-        <AlertDialog.Overlay>
-          <AlertDialog.Content asChild>
+      <Dialog.Portal>
+        <Dialog.Overlay>
+          <Dialog.Content asChild>
             <CartContainer>
-              <AlertDialog.Cancel asChild>
+              <Dialog.Close asChild>
                 <Close>
                   <X size="1.5rem" />
                 </Close>
-              </AlertDialog.Cancel>
+              </Dialog.Close>
               <h2>Sacola de compras</h2>
 
               <CartContent>
@@ -94,21 +92,29 @@ export default function Cart() {
                         alt=""
                       />
                     </ImageContainer>
-                    <span>{entry.name}</span>
-                    <PriceContainer>
+                    <ProductDetails>
+                      <span>{entry.name}</span>
                       <strong>{entry.formattedValue}</strong>
-                      <NumberInput
-                        value={entry.quantity}
-                        onValueChange={(value) =>
-                          handleQuantityChange(entry.id, value, entry.quantity)
-                        }
-                      />
-                    </PriceContainer>
-                    <button onClick={() => removeItem(entry.id)}>
-                      Remover
-                    </button>
+
+                      <ActionsContainer>
+                        <NumberInput
+                          value={entry.quantity}
+                          onValueChange={(value) =>
+                            handleQuantityChange(
+                              entry.id,
+                              value,
+                              entry.quantity,
+                            )
+                          }
+                        />
+                        <button onClick={() => removeItem(entry.id)}>
+                          Remover
+                        </button>
+                      </ActionsContainer>
+                    </ProductDetails>
                   </ProductContainer>
                 ))}
+                {!cartCount && <p>Você não possui nenhum item no carrinho.</p>}
               </CartContent>
 
               <Footer>
@@ -127,9 +133,9 @@ export default function Cart() {
                 </button>
               </Footer>
             </CartContainer>
-          </AlertDialog.Content>
-        </AlertDialog.Overlay>
-      </AlertDialog.Portal>
-    </AlertDialog.Root>
+          </Dialog.Content>
+        </Dialog.Overlay>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }

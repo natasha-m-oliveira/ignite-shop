@@ -86,26 +86,45 @@ export const CartContent = styled('div', {
   flexDirection: 'column',
   gap: '1.5rem',
   overflowY: 'auto',
-
-  '&::-webkit-scrollbar-thumb': {
-    background: '$gray900',
-  },
 })
 
 export const ProductContainer = styled('div', {
-  display: 'grid',
+  display: 'flex',
+  gap: '1.25rem',
+})
+
+export const ImageContainer = styled('div', {
+  width: '6rem',
+  height: '6rem',
+  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+  borderRadius: 8,
+  padding: '0.25rem',
+
+  display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
-  gap: '1rem',
 
-  '@sm': {
-    gridTemplateColumns: 'auto 1fr',
-    gridTemplateRows: 'repeat(3, auto)',
-    columnGap: '1.25rem',
+  img: {
+    display: 'block',
+    maxWidth: '100%',
+    objectFit: 'cover',
   },
+})
 
-  span: {
+export const ProductDetails = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: '0.5rem',
+
+  '& > span': {
     color: '$gray300',
     fontSize: '$md',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': '1',
   },
 
   strong: {
@@ -121,6 +140,10 @@ export const ProductContainer = styled('div', {
     border: 'none',
     cursor: 'pointer',
 
+    transitionProperty: 'color',
+    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    transitionDuration: '150ms',
+
     '&:disabled': {
       opacity: 0.6,
       cursor: 'not-allowed',
@@ -132,33 +155,11 @@ export const ProductContainer = styled('div', {
   },
 })
 
-export const ImageContainer = styled('div', {
-  width: '9rem',
-  aspectRatio: '1 / 1',
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-  borderRadius: 8,
-  padding: '0.25rem',
-  margin: '0 auto',
-
+export const ActionsContainer = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
-
-  '@sm': {
-    width: '6rem',
-    gridRow: '1 / -1',
-  },
-
-  img: {
-    objectFit: 'cover',
-  },
-})
-
-export const PriceContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: '0.5rem',
+  gap: '1rem',
+  marginTop: 'auto',
 })
 
 export const Footer = styled('footer', {
@@ -192,6 +193,10 @@ export const Footer = styled('footer', {
     borderRadius: '8px',
     border: 'none',
     cursor: 'pointer',
+
+    transitionProperty: 'background-color',
+    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    transitionDuration: '150ms',
 
     '&:disabled': {
       opacity: 0.6,

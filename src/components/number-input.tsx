@@ -35,11 +35,11 @@ export default function NumberInput(props: NumberInputProps) {
   return (
     <NumberInputContainer>
       <button disabled={disableMinus} onClick={reduce}>
-        <Minus />
+        <Minus size="0.875rem" />
       </button>
       <input type="number" value={count} readOnly />
       <button disabled={disableAdd} onClick={add}>
-        <Plus />
+        <Plus size="0.875rem" />
       </button>
     </NumberInputContainer>
   )

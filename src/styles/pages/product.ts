@@ -72,6 +72,10 @@ export const ProductDetails = styled('div', {
     fontWeight: 'bold',
     fontSize: '$md',
 
+    transitionProperty: 'background-color',
+    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    transitionDuration: '150ms',
+
     '&:disabled': {
       opacity: 0.6,
       cursor: 'not-allowed',
