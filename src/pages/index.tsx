@@ -11,21 +11,30 @@ import { HomeContainer, Product } from '../styles/pages/home'
 import 'keen-slider/keen-slider.min.css'
 import Stripe from 'stripe'
 import Head from 'next/head'
+import { Bag } from 'phosphor-react'
+import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart'
+import { useMediaQuery } from 'react-responsive'
 
 interface HomeProps {
   products: {
     id: string
     name: string
     imageUrl: string
-    price: string
+    defaultPriceId: string
+    price: number
+    currency: string
   }[]
 }
 
 export default function Home({ products }: HomeProps) {
+  const { addItem } = useShoppingCart()
+
+  const isMobileScreen = useMediaQuery({ query: '(max-width: 768px)' })
+
   const [sliderRef] = useKeenSlider({
     slides: {
-      perView: 2.5,
-      spacing: 48,
+      perView: isMobileScreen ? 1.2 : 2.5,
+      spacing: isMobileScreen ? 24 : 48,
     },
   })
 
@@ -47,8 +56,24 @@ export default function Home({ products }: HomeProps) {
                 <Image src={product.imageUrl} width={520} height={480} alt="" />
 
                 <footer>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>
+                      {formatCurrencyString({
+                        value: product.price,
+                        currency: product.currency,
+                      })}
+                    </span>
+                  </div>
+                  <button
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      event.preventDefault()
+                      addItem(product)
+                    }}
+                  >
+                    <Bag size="2rem" weight="bold" />
+                  </button>
                 </footer>
               </Product>
             </Link>
@@ -71,10 +96,9 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }).format(Number(price.unit_amount) / 100),
+      defaultPriceId: price.id,
+      price: price.unit_amount,
+      currency: price.currency,
     }
   })
 

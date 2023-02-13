@@ -2,10 +2,10 @@ import { styled } from '..'
 
 export const HomeContainer = styled('main', {
   display: 'flex',
-  width: '100%',
-  maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
+  width: 'calc(100% - 1rem) !important',
+  maxWidth: 'calc(100vw - ((100vw - 1180px) / 2) - 1rem)',
   marginLeft: 'auto',
-  minHeight: 656,
+  maxHeight: 656,
 })
 
 export const Product = styled('div', {
@@ -14,12 +14,16 @@ export const Product = styled('div', {
   cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
+  aspectRatio: '1 / 1.2',
 
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 
   img: {
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '90%',
     objectFit: 'cover',
   },
 
@@ -42,6 +46,11 @@ export const Product = styled('div', {
     opacity: 0,
     transition: 'all 0.2s ease-in-out',
 
+    div: {
+      display: 'grid',
+      gap: '0.25rem',
+    },
+
     strong: {
       fontSize: '$lg',
       color: '$gray100',
@@ -51,6 +60,19 @@ export const Product = styled('div', {
       fontSize: '$xl',
       fontWeight: 'bold',
       color: '$green300',
+    },
+
+    button: {
+      padding: '0.75rem',
+      background: '$green500',
+      color: '$gray100',
+      borderRadius: 6,
+      border: 'none',
+      cursor: 'pointer',
+
+      '&:hover': {
+        background: '$green300',
+      },
     },
   },
 

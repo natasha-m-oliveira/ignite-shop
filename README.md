@@ -13,6 +13,11 @@ O E-commerce lista os produtos cadastrados na plataforma Dashboard Stripe.
 - [Next](https://nextjs.org/)
 - [Stitches](https://stitches.dev/)
 - [Keen Slider](https://keen-slider.io/)
+- [React Toastify](https://fkhadra.github.io/react-toastify)
+- [Phosphor React](https://phosphoricons.com/)
+- [Axios](https://axios-http.com/)
+- [Stripe](https://stripe.com/)
+- [Use Shopping Cart](https://useshoppingcart.com/)
 
 ## Launch the application
 

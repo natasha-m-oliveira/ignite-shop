@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -12,44 +11,25 @@ import {
   ProductContainer,
   ProductDetails,
 } from '../../styles/pages/product'
-import { useState } from 'react'
 import Head from 'next/head'
+import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart'
 
 interface ProductProps {
   product: {
     id: string
     name: string
-    imageUrl: string
-    price: string
     description: string
+    imageUrl: string
     defaultPriceId: string
+    price: number
+    currency: string
   }
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
-    useState(false)
+  const { addItem } = useShoppingCart()
 
   const { isFallback } = useRouter()
-
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
-
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      })
-
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
-    } catch (err) {
-      // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
-      setIsCreatingCheckoutSession(false)
-
-      alert('Falha ao redicionar ao checkout')
-    }
-  }
 
   if (isFallback) {
     return (
@@ -101,15 +81,15 @@ export default function Product({ product }: ProductProps) {
 
         <ProductDetails>
           <h1>{product.name}</h1>
-          <span>{product.price}</span>
+          <span>
+            {formatCurrencyString({
+              value: product.price,
+              currency: product.currency,
+            })}
+          </span>
           <p>{product.description}</p>
 
-          <button
-            disabled={isCreatingCheckoutSession}
-            onClick={handleBuyProduct}
-          >
-            Comprar agora
-          </button>
+          <button onClick={() => addItem(product)}>Comprar agora</button>
         </ProductDetails>
       </ProductContainer>
     </>
@@ -138,13 +118,11 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
       product: {
         id: product.id,
         name: product.name,
-        imageUrl: product.images[0],
-        price: new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        }).format(Number(price.unit_amount) / 100),
         description: product.description,
+        imageUrl: product.images[0],
         defaultPriceId: price.id,
+        price: price.unit_amount,
+        currency: price.currency,
       },
     },
     revalidate: 60 * 60 * 1, // 1 hour

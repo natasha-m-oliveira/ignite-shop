@@ -2,34 +2,46 @@ import { styled } from '..'
 
 export const ProductContainer = styled('main', {
   display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
+  gridTemplateColumns: '1fr',
+  justifyContent: 'center',
   alignItems: 'stretch',
   gap: '4rem',
 
   maxWidth: 1180,
   margin: '0 auto',
+  padding: '0 1rem',
+
+  '@md': {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
 })
 
 export const ImageContainer = styled('div', {
-  width: '100%',
   maxWidth: 576,
-  height: 656,
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
   padding: '0.25rem',
+  margin: '0 auto',
 
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 
   img: {
+    display: 'block',
+    maxWidth: '100%',
     objectFit: 'cover',
+  },
+
+  '@lg': {
+    aspectRatio: '1 / 1.2',
   },
 })
 
 export const ProductDetails = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
+  minWidth: '375px',
+  display: 'grid',
+  gap: '1rem',
 
   '&>h1': {
     fontSize: '$2xl',
@@ -37,14 +49,13 @@ export const ProductDetails = styled('div', {
   },
 
   '&>span': {
-    marginTop: '1rem',
     display: 'block',
     fontSize: '$2xl',
     color: '$green300',
   },
 
   '&>p': {
-    marginTop: '2.5rem',
+    marginTop: '1.5rem',
     fontSize: '$md',
     lineHeight: 1.6,
     color: '$gray300',
